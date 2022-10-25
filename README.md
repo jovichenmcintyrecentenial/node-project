@@ -40,6 +40,7 @@ bug-fix
 ```
  .
 ├── controllers               #contains business logic for routes
+├── middlewares               # functions that are used before or after processing a route eg. for route gaurding
 ├── routes                    # api route will be define here with respective controllers
 ├── models                    # model definition should go here, espically when using mongoDB
 ├── utils                     # helpful function and files
