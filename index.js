@@ -17,15 +17,14 @@ server.listen(process.env.PORT, process.env.HOST, function (){
 });
 
 server.use(bodyParser.json())
-server.post('/images', function(req, res,next){
-   
+server.post('/images', function(req, res, next){
+    const { imageId, name } = req.body;
     //valid request
-    if(req.params.imageId === undefined){
-        error.InvalidArgument(res,'image')
-      
-    }
-    else if(req.params.name === undefined){
+    if(imageId === undefined){
         error.InvalidArgument(res,'image')
     }
-
+    else if(name === undefined){
+        error.InvalidArgument(res,'image')
+    }
+    res.send()
 });
