@@ -1,5 +1,7 @@
-import { argsError } from './utils/utils';
 
+var utils = require('./utils/utils.js');
+var dotenv = require('dotenv')
+dotenv.config()
 // config settings
 const SERVER_NAME = 'care-api';
 const PORT = 5000;
@@ -12,7 +14,7 @@ var server = restify.createServer({name: SERVER_NAME});
 
 //list to serve and display avaiblem methods
 server.listen(PORT, HOST, function (){
-    console.log('Server %s listening at %s', server.name, server.url);
+    console.log('Server %s listening at %s', server.name, process.env.SERVER_NAME);
 });
 
 
@@ -22,10 +24,10 @@ server.post('/images', function(req, res,next){
 
     //valid request
     if(req.params.imageId === undefined){
-        return argsError(next, 'imageId is not specified');
+        return utils.argsError(next, 'imageId is not specified');
     }
     else if(req.params.name === undefined){
-        return argsError(next, 'name is not specified');
+        return utils.argsError(next, 'name is not specified');
     }
 
   
