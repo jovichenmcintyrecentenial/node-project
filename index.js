@@ -1,35 +1,31 @@
 
-var utils = require('./utils/utils.js');
+const utils = require('./utils/utils.js');
+const error = require('./utils/errors.js')
+const bodyParser = require('body-parser')
+
 var dotenv = require('dotenv')
 dotenv.config()
-// config settings
-const SERVER_NAME = 'care-api';
-const PORT = 5000;
-const HOST = '127.0.0.1';
- 
-var restify = require('restify');
+
+const express = require('express');
 
 //create server
-var server = restify.createServer({name: SERVER_NAME});
+var server = express();
 
 //list to serve and display avaiblem methods
-server.listen(PORT, HOST, function (){
+server.listen(process.env.PORT, process.env.HOST, function (){
     console.log('Server %s listening at %s', server.name, process.env.SERVER_NAME);
 });
 
-
-server.use(restify.fullResponse()).use(restify.bodyParser());
-
+server.use(bodyParser.json())
 server.post('/images', function(req, res,next){
-
+   
     //valid request
     if(req.params.imageId === undefined){
-        return utils.argsError(next, 'imageId is not specified');
+        error.InvalidArgument(res,'image')
+      
     }
     else if(req.params.name === undefined){
-        return utils.argsError(next, 'name is not specified');
+        error.InvalidArgument(res,'image')
     }
-
-  
 
 });

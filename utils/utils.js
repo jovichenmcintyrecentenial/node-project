@@ -1,9 +1,14 @@
 /* eslint-disable no-undef */
-var restify = require('restify');
+const express = require('express');
 
-function argsError(next,errorMessage){
+module.exports.argsError = (next,errorMessage)=>{
     console.log('POST /images: error '+errorMessage);
-    return next(new restify.InvalidArgumentError(errorMessage));
+    return next(new express.InvalidArgumentError(errorMessage));
 }
+var router = express.Router()
 
-module.exports = {argsError}
+router.post('/login', (req, res,next)=>{
+    console.log(req+res+next)
+});
+
+module.exports.router = router

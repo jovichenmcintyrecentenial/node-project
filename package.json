@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "description": "REST API - Images",
     "dependencies": {
-        "restify": "4.1.1",
-        "dotenv": "^8.2.0"
+        "dotenv": "^8.2.0",
+        "express": "^4.18.2"
     },
     "author": "Jovi Chen-McIntyre",
     "private": true,
