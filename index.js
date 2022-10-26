@@ -1,6 +1,7 @@
 
 const utils = require('./utils/utils.js');
 const error = require('./utils/errors.js')
+const authController = require('./controllers/authenicationController.js')
 const bodyParser = require('body-parser')
 
 var dotenv = require('dotenv')
@@ -28,3 +29,5 @@ server.post('/images', function(req, res, next){
     }
     res.send()
 });
+
+server.post('/login', authController.login)

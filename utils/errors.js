@@ -10,6 +10,5 @@ class BaseError {
 function returnError(res,baseError){
     res.status(baseError.statusCode).send(baseError)
 }
-
-module.exports.InvalidArgument = (res,message) => returnError(res,(new BaseError(message,400)))
+module.exports.InvalidArgument = (res,message) => returnError(res,(new BaseError(message+' is not speificed',400)))
 
