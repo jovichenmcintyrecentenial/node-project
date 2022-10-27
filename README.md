@@ -45,6 +45,7 @@ bug-fix
 ├── models                    # model definition should go here, espically when using mongoDB
 ├── utils                     # helpful function and files
 ├── package.json              # project dependencies
+├── .env                      # files to store environment varible such ask base_url and port for server
 └── app.js
 
 ```
