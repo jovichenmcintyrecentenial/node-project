@@ -3,6 +3,7 @@ const error = require('./utils/errors.js')
 const errorMiddleware = require('./controllers/errorController.js')
 const authController = require('./controllers/authenicationController.js')
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 
 var dotenv = require('dotenv')
 dotenv.config()
@@ -18,17 +19,15 @@ server.listen(process.env.PORT, process.env.HOST, function (){
 })
 
 server.use(bodyParser.json())
-server.post('/images', function(req, res, next){
-    const { imageId, name } = req.body
-    //valid request
-    if(imageId === undefined){
-        error.InvalidArgument(next,'image')
-    }
-    else if(name === undefined){
-        error.InvalidArgument(next,'image')
-    }
-    res.send()
-})
+mongoose.connect(process.env.DB_CONNECTION_STRING, {useNewUrlParser: true});
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    // we're connected!
+    console.log('!!!! Connected to db: ' + process.env.DB_CONNECTION_STRING)
+});
+
 
 
 server.post('/login', authController.login)
