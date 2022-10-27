@@ -1,3 +1,4 @@
+const e = require('express');
 const jwt = require('jsonwebtoken');
 const error = require('./../utils/errors.js')
 
@@ -14,12 +15,15 @@ const createToken = id => {
 };
 
 module.exports.login = async (req, res, next) => {
-    const{user, email} = req.body;
+    const{email, password} = req.body;
 
-    if(user === undefined){
-        error.InvalidArgument(res,'user')
+    if(email === undefined){
+        error.InvalidArgument(req,res,next,'email')
+    }
+    else if(password === undefined){
+        error.InvalidArgument(req,res,next,'password')
     }
     else{
-        res.send(createToken(user))
+        res.send(createToken(email))
     }
 }

@@ -1,14 +1,14 @@
-
-class BaseError {
+class BaseError extends Error {
 
     constructor( message,statusCode) {
+        super(message)
         this.error = message
         this.statusCode = statusCode
     } 
 }
 
-function returnError(res,baseError){
-    res.status(baseError.statusCode).send(baseError)
+function returnError(req,res,next,baseError){
+    next(baseError,req,res,next)
 }
-module.exports.InvalidArgument = (res,message) => returnError(res,(new BaseError(message+' is not speificed',400)))
+module.exports.InvalidArgument = (req,res,next,message) => returnError(req,res,next,(new BaseError(message+' is not speificed',400)))
 

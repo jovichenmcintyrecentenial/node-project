@@ -1,6 +1,7 @@
 
 const utils = require('./utils/utils.js');
 const error = require('./utils/errors.js')
+const errorMiddleware = require('./controllers/errorController.js');
 const authController = require('./controllers/authenicationController.js')
 const bodyParser = require('body-parser')
 
@@ -22,12 +23,14 @@ server.post('/images', function(req, res, next){
     const { imageId, name } = req.body;
     //valid request
     if(imageId === undefined){
-        error.InvalidArgument(res,'image')
+        error.InvalidArgument(next,'image')
     }
     else if(name === undefined){
-        error.InvalidArgument(res,'image')
+        error.InvalidArgument(next,'image')
     }
     res.send()
 });
 
+
 server.post('/login', authController.login)
+server.use(errorMiddleware)
