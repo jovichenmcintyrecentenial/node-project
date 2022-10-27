@@ -1,9 +1,8 @@
-const utils = require('./utils/utils.js')
-const error = require('./utils/errors.js')
 const errorMiddleware = require('./controllers/errorController.js')
 const authController = require('./controllers/authenicationController.js')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const User = require('./models/userModel');
 
 var dotenv = require('dotenv')
 dotenv.config()
@@ -28,7 +27,17 @@ db.once('open', function() {
     console.log('!!!! Connected to db: ' + process.env.DB_CONNECTION_STRING)
 });
 
+// Creating new patient.
+var newUser = new User({
+    name: 'jovi',
+    password: '123456789',
+    email: 'jm@gmail.com'
+});
 
+// Create the patient and saving to db
+newUser.save(function (error, result) {
+    console.log(result)
+})
 
 server.post('/login', authController.login)
 server.use(errorMiddleware)
