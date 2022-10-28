@@ -44,8 +44,6 @@ module.exports.login = async (req, res, next) => {
 
 module.exports.gaurd = async (req, res, next) => {
     const{authorization} = req.headers
-    console.log('here')
-
     if(authorization !== undefined){
         let splits = authorization.split(' ');
 
