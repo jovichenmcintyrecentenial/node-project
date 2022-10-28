@@ -25,7 +25,7 @@ var patientSchema = new mongoose.Schema({
         type: String,
         required: [true, 'allergies required'],
     },
-});
+},{timestamps: true});
 
 const Patient = mongoose.model('Patient', patientSchema);
 module.exports = Patient;

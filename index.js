@@ -1,5 +1,6 @@
 const errorMiddleware = require('./controllers/errorController.js')
 const {userRoutes} = require('./routes/userRoutes.js')
+const {patientRoutes} = require('./routes/patientRoutes.js')
 
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
@@ -42,4 +43,6 @@ db.once('open', function() {
 
 // server.post('/login', authController.login)
 server.use(userRoutes)
+server.use(patientRoutes)
+
 server.use(errorMiddleware)

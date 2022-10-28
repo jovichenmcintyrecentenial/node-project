@@ -20,10 +20,10 @@ module.exports.login = async (req, res, next) => {
     const{email, password} = req.body;
 
     if(email === undefined){
-        error.InvalidArgument(req,res,next,'email')
+        return error.InvalidArgument(req,res,next,'email')
     }
     else if(password === undefined){
-        error.InvalidArgument(req,res,next,'password')
+        return error.InvalidArgument(req,res,next,'password')
     }
     else{
 
@@ -33,7 +33,7 @@ module.exports.login = async (req, res, next) => {
         console.log(user)
         if(!user || password != user.password){
             console.log('Invalid email or password')
-            error.Error(req,res,next,'Invalid email or password')
+            return error.Error(req,res,next,'Invalid email or password')
 
         }
         else{
@@ -49,7 +49,6 @@ module.exports.gaurd = async (req, res, next) => {
 
         if(splits.length == 2){
             let token = splits[1]
-            console.log(token)
             if(!token){
                 return error.Unauthorized(req,res,next)
             }
@@ -67,7 +66,7 @@ module.exports.gaurd = async (req, res, next) => {
                     }
                 } catch (err) {
                     //catch error if invalid signature
-                    next(err);
+                    return next(err);
                 }
                 
             }
@@ -76,7 +75,7 @@ module.exports.gaurd = async (req, res, next) => {
 
     }
     
-    error.Unauthorized(req,res,next)
+    return error.Unauthorized(req,res,next)
    
    
 }
