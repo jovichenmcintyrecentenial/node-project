@@ -11,8 +11,11 @@ const {addPatient,getAllPatients, getPatient} = require('./../controllers/patien
 router.use(gaurd);
 //anything route below this point request a token to function
 
+//create add patient route
 router.post('/patients', addPatient);
+//create get all patient route
 router.get('/patients', getAllPatients);
+//create get patient based on there id route
 router.get('/patients/:id', getPatient);
 
 module.exports.patientRoutes = router

@@ -1,29 +1,38 @@
+//define imports
 const error = require('./../utils/errors.js')
 const Patient = require('../models/patientModel.js');
 
+//handler for adding a patient
 module.exports.addPatient = async (req, res, next) => {
+    //extract arguements from request body
     const{firstname, lastname,gender,dob,allergies,conditions} = req.body;
 
+    //check if firstname is define and return error if necessary
     if(firstname === undefined){
         return error.InvalidArgument(req,res,next,'firstname')
     }
+    //check if lastname is define and return error if necessary
     if(lastname === undefined){
         return error.InvalidArgument(req,res,next,'lastname')
     }
+    //check if gender is define and return error if necessary
     if(gender === undefined){
         return error.InvalidArgument(req,res,next,'gender')
     }
+    //check if dob is define and return error if necessary
     if(dob === undefined){
         return error.InvalidArgument(req,res,next,'dob')
     }
+    //check if allergies is define and return error if necessary
     if(allergies === undefined){
         return error.InvalidArgument(req,res,next,'allergies')
     }
+    //check if conditions is define and return error if necessary
     if(conditions === undefined){
         return error.InvalidArgument(req,res,next,'conditions')
     }
 
-
+    //create new Patient model base on requests information
     var newPatient = new Patient({
         first_name: firstname,
         last_name: lastname,
@@ -33,31 +42,42 @@ module.exports.addPatient = async (req, res, next) => {
         conditions: conditions,
     });
 
-
+    //save new patient data to database
     newPatient.save(function (error, result) {
+        //if error return error
         if (error) return next(new Error(JSON.stringify(error.errors)))
+        //return newly created patient if added successfully
         res.status(201).send( result)
     })
 }
 
+//handler for getting all patient in database
 module.exports.getAllPatients = async (req, res, next) => {
 
+    //search for all patient and return an array
     Patient.find({}).exec(function (error, result) {
+        //if error return error
         if (error) return next(new Error(JSON.stringify(error.errors)))
+        //return results
         res.send(result);
     });
 
 }
 
-
+//get a single patient information
 module.exports.getPatient = async (req, res, next) => {
+    //find patient in database based on user id
     Patient.findOne({ _id: req.params.id }).exec(function (error, patient) {
-
+        
+        //if error return the error response
         if (error) return next(new Error(JSON.stringify(error.errors)))
 
+        //if patient found bring patient object
         if (patient) {
             res.send(patient)
-        } else {
+        } else 
+        //if unable to find patient return 404
+        {
             res.send(404)
         }
     })
