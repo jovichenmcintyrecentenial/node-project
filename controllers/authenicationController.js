@@ -37,7 +37,7 @@ module.exports.login = async (req, res, next) => {
 
         }
         else{
-            res.send(createToken(user._id,user.name))
+            res.send({token:createToken(user._id,user.name)})
         }
     }
 }
