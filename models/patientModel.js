@@ -1,5 +1,6 @@
 var mongoose = require ('mongoose');
 
+//define patient schema with createAt and updateAt timestamps
 var patientSchema = new mongoose.Schema({
     first_name: {
         type: String,
@@ -27,5 +28,6 @@ var patientSchema = new mongoose.Schema({
     },
 },{timestamps: true});
 
+//compiles the schema into a model.
 const Patient = mongoose.model('Patient', patientSchema);
 module.exports = Patient;
