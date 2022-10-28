@@ -48,3 +48,17 @@ module.exports.getAllPatients = async (req, res, next) => {
     });
 
 }
+
+
+module.exports.getPatient = async (req, res, next) => {
+    Patient.findOne({ _id: req.params.id }).exec(function (error, patient) {
+
+        if (error) return next(new Error(JSON.stringify(error.errors)))
+
+        if (patient) {
+            res.send(patient)
+        } else {
+            res.send(404)
+        }
+    })
+}
