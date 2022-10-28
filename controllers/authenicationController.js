@@ -47,7 +47,7 @@ module.exports.gaurd = async (req, res, next) => {
     if(authorization !== undefined){
         let splits = authorization.split(' ');
 
-        if(splits.length == 2){
+        if(splits.length == 2 && splits == 'Bearer'){
             let token = splits[1]
             if(!token){
                 return error.Unauthorized(req,res,next)
