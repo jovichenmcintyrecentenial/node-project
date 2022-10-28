@@ -56,15 +56,22 @@ module.exports.gaurd = async (req, res, next) => {
                 return error.Unauthorized(req,res,next)
             }
             else{
-                const decode = await promisify(jwt.verify)(token, process.env.JWT_KEY);
-                if(!decode){
-                    return error.Unauthorized(req,res,next)
+                try{
+                    const decode = await promisify(jwt.verify)(token, process.env.JWT_KEY);
+
+                    if(!decode){
+                        return error.Unauthorized(req,res,next)
+                    }
+                    else{
+                        req.userId = decode.id
+                        req.userName = decode.name
+                        return next()
+                    }
+                } catch (err) {
+                    //catch error if invalid signature
+                    next(err);
                 }
-                else{
-                    req.userId = decode.id
-                    req.userName = decode.name
-                    return next()
-                }
+                
             }
 
         }
