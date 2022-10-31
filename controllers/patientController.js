@@ -46,6 +46,7 @@ module.exports.addPatient = async (req, res, next) => {
     newPatient.save(function (error, result) {
         //if error return error
         if (error) return next(new Error(JSON.stringify(error.errors)))
+        console.log(result)
         //return newly created patient if added successfully
         res.status(201).send( result)
     })
@@ -59,6 +60,7 @@ module.exports.getAllPatients = async (req, res, next) => {
         //if error return error
         if (error) return next(new Error(JSON.stringify(error.errors)))
         //return results
+        console.log(result)
         res.send(result);
     });
 
@@ -74,10 +76,12 @@ module.exports.getPatient = async (req, res, next) => {
 
         //if patient found bring patient object
         if (patient) {
+            console.log(patient)
             res.send(patient)
         } else 
         //if unable to find patient return 404
         {
+            console.log('Not Founded')
             res.send(404)
         }
     })

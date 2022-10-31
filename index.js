@@ -2,6 +2,7 @@
 const errorMiddleware = require('./controllers/errorController.js')
 const {userRoutes} = require('./routes/userRoutes.js')
 const {patientRoutes} = require('./routes/patientRoutes.js')
+const apiMonitor = require('./controllers/monitorController.js')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const express = require('express')
@@ -20,6 +21,8 @@ var server = express();
 //list to serve and display avaiblem methods
 server.listen(process.env.MY_PORT, process.env.HOST, function (){
     console.log('Server %s listening at %s', server.name, process.env.SERVER_NAME)
+    console.log('%s:%s/%s methods:(GET, POST)',process.env.HOST,process.env.MY_PORT,'patients')  
+
 })
 
 server.use(bodyParser.json())
@@ -29,7 +32,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
     // we're connected!
-    console.log('!!!! Connected to db: ' + process.env.DB_CONNECTION_STRING)
+    console.log('MongoDB Connection successful')
 });
 
 // const User = require('./models/userModel');
@@ -46,8 +49,10 @@ db.once('open', function() {
 //     console.log(result)
 // })
 
-// server.post('/login', authController.login)
+
+server.use(apiMonitor)
 server.use(userRoutes)
 server.use(patientRoutes)
+
 
 server.use(errorMiddleware)

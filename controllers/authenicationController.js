@@ -48,7 +48,9 @@ module.exports.login = async (req, res, next) => {
         //if user exist and password match
         else{
             //response with token as json
-            res.send({token:createToken(user._id,user.name)})
+            var token = createToken(user._id,user.name)
+            console.log({token:token})
+            res.send({token:token})
         }
     }
 }
