@@ -8,7 +8,7 @@ const {gaurd,login} = require('./../controllers/authenicationController');
 
 //declare login route with using login handler from controller
 //this is added before the gaurd route so this api doesn't request a token to work
-router.post('/login', login);
+router.post('/users/login', login);
 
 //add gaurd handle to verify token sent in header
 router.use(gaurd);
