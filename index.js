@@ -47,7 +47,7 @@ db.once('open', function() {
 
 // // Create the patient and saving to db
 // newUser.save(function (error, result) {
-//     console.log(result)
+//     console.log(result) this a test
 // })
 
 
