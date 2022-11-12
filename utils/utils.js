@@ -1,14 +1,5 @@
-/* eslint-disable no-undef */
-const express = require('express');
 
-module.exports.argsError = (next,errorMessage)=>{
-    console.log('POST /images: error '+errorMessage);
-    return next(new express.InvalidArgumentError(errorMessage));
+
+module.exports.isEmpty = (object) =>{  
+    return Object.keys(object).length === 0
 }
-var router = express.Router()
-
-router.post('/login', (req, res,next)=>{
-    console.log(req+res+next)
-});
-
-module.exports.router = router

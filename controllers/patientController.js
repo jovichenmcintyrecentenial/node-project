@@ -1,6 +1,8 @@
 //define imports
 const error = require('./../utils/errors.js')
 const Patient = require('../models/patientModel.js');
+const { isEmpty } = require('../utils/utils.js');
+
 
 //handler for adding a patient
 module.exports.addPatient = async (req, res, next) => {
@@ -78,6 +80,40 @@ module.exports.getAllPatients = async (req, res, next) => {
 module.exports.getPatient = async (req, res, next) => {
     //find patient in database based on user id
     Patient.findOne({ _id: req.params.id }).exec(function (error, patient) {
+        
+        //if error return the error response
+        if (error) return next(new Error(JSON.stringify(error.errors)))
+
+        //if patient found bring patient object
+        if (patient) {
+            console.log(patient)
+            res.send(patient)
+        } else 
+        //if unable to find patient return 404
+        {
+            console.log('Not Founded')
+            res.send(404)
+        }
+    })
+}
+
+
+
+//update a patient patient information
+module.exports.updatePatient = async (req, res, next) => {
+    
+    //if id path no set then return an error
+    if(req.params.id === undefined){
+        return error.InvalidPath(req,res,next,'id')
+    }
+    console.log(req.body)
+    if(req.body === undefined || isEmpty(req.body)){
+        return error.Error(req,res,next,'no data in body')
+    }
+
+    //find and update a patient in database based on user id
+    Patient.findOneAndUpdate({ _id: req.params.id },
+        req.body,{returnOriginal: false}).exec(function (error, patient) {
         
         //if error return the error response
         if (error) return next(new Error(JSON.stringify(error.errors)))

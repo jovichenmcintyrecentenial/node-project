@@ -5,7 +5,7 @@ const router = express.Router();
 
 //get handlers from controllers
 const {gaurd} = require('./../controllers/authenicationController');
-const {addPatient,getAllPatients, getPatient} = require('./../controllers/patientController');
+const {updatePatient,addPatient,getAllPatients, getPatient} = require('./../controllers/patientController');
 
 //add token check handler
 router.use(gaurd);
@@ -17,6 +17,7 @@ router.post('/patients', addPatient);
 router.get('/patients', getAllPatients);
 //create get patient based on there id route
 router.get('/patients/:id', getPatient);
-
+//update patient information
+router.put('/patients/:id', updatePatient);
 module.exports.patientRoutes = router
 

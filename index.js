@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const express = require('express')
 var dotenv = require('dotenv')
-
+const cors = require('cors');
 //load environmental varibles from env file
 //this contains SERVER_NAME, PORT, HOST, JWT_KEY, JWT_EXPIRY and DB_CONNECTION_STRING
 dotenv.config({
@@ -27,6 +27,7 @@ server.listen(process.env.MY_PORT, process.env.HOST, function (){
 })
 
 server.use(bodyParser.json())
+server.use(cors())
 mongoose.connect(process.env.DB_CONNECTION_STRING, {useNewUrlParser: true});
 
 const db = mongoose.connection;
