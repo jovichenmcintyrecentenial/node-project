@@ -56,7 +56,13 @@ module.exports.addPatient = async (req, res, next) => {
 module.exports.getAllPatients = async (req, res, next) => {
 
     //search for all patient and return an array
-    Patient.find({}).exec(function (error, result) {
+    const {query} = req.query 
+    //search for all patient and return an array
+    Patient.find(query === undefined?{}:
+        {$or:[
+            {first_name: {$regex : query, $options : 'i'},},
+            {last_name: {$regex : query, $options : 'i'},}]
+        }).exec(function (error, result) {
         //if error return error
         if (error) return next(new Error(JSON.stringify(error.errors)))
         //return results
@@ -65,6 +71,8 @@ module.exports.getAllPatients = async (req, res, next) => {
     });
 
 }
+
+
 
 //get a single patient information
 module.exports.getPatient = async (req, res, next) => {
