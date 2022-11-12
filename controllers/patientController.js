@@ -99,6 +99,36 @@ module.exports.getPatient = async (req, res, next) => {
 
 
 
+//delete a single patient information
+module.exports.deletePatient = async (req, res, next) => {
+
+    //if id path no set then return an error
+    if(req.params.id === undefined){
+        return error.InvalidPath(req,res,next,'id')
+    }
+
+    //delete patient in database based on id
+    Patient.findOneAndDelete({ _id: req.params.id }).exec(function (error, patient) {
+        
+        //if error return the error response
+        if (error) return next(new Error(JSON.stringify(error.errors)))
+
+        //if patient found bring patient object
+        if (patient) {
+            console.log(patient)
+            res.sendStatus(200)
+        } else 
+        //if unable to find patient return 404
+        {
+            console.log('Not Found')
+            res.sendStatus(404)
+        }
+    })
+}
+
+
+
+
 //update a patient patient information
 module.exports.updatePatient = async (req, res, next) => {
     
@@ -126,7 +156,7 @@ module.exports.updatePatient = async (req, res, next) => {
         //if unable to find patient return 404
         {
             console.log('Not Founded')
-            res.send(404)
+            res.sendStatus(404)
         }
     })
 }
