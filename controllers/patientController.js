@@ -320,6 +320,9 @@ module.exports.updatePatientTest = async (req, res, next) => {
     if(req.body === undefined || isEmpty(req.body)){
         return error.Error(req,res,next,'no data in body')
     }
+    
+    const {systolic_pressure,diastolic_pressure,heartbeat,blood_oxygen,notes} = req.body
+
     //find patient base on id
     Patient.findOne({ _id: req.params.patient_id }).select('+tests').exec(async function (error, patient)  {
         
@@ -345,5 +348,27 @@ module.exports.updatePatientTest = async (req, res, next) => {
             if (error) return next(error)
         }
 
+    })
+}
+
+
+//get a single patient tests information
+module.exports.getPatientsTestRecord = async (req, res, next) => {
+    //find patient in database based on user id
+    Patient.findOne({ _id: req.params.id }).select('+tests').exec(function (error, patient) {
+        
+        //if error return the error response
+        if (error) return next(new Error(JSON.stringify(error.errors)))
+
+        //if patient found bring patient object
+        if (patient) {
+            console.log(patient.tests)
+            res.send(patient.tests)
+        } else 
+        //if unable to find patient return 404
+        {
+            console.log('Not Founded')
+            res.send(404)
+        }
     })
 }
