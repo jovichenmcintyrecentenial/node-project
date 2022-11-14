@@ -23,8 +23,13 @@ server.listen(process.env.MY_PORT, process.env.HOST, function (){
     console.log('Server %s listening at %s', server.name, process.env.SERVER_NAME)
     console.log('%s:%s/%s methods:[POST] ',process.env.HOST,process.env.MY_PORT,'users/login ')  
     console.log('%s:%s/%s methods:[GET, POST]',process.env.HOST,process.env.MY_PORT,'patients')  
-    console.log('%s:%s/%s methods:[GET] ',process.env.HOST,process.env.MY_PORT,'patients/{id}')  
+    console.log('%s:%s/%s methods:[GET,DELETE,PUT] ',process.env.HOST,process.env.MY_PORT,'patients/{id}')  
+    console.log('%s:%s/%s methods:[POST] ',process.env.HOST,process.env.MY_PORT,'patients/{id}/tests')
+    console.log('%s:%s/%s methods:[DELETE] ',process.env.HOST,process.env.MY_PORT,'patients/{id}/tests/{id}')  
+    console.log('%s:%s/%s methods:[GET] ',process.env.HOST,process.env.MY_PORT,'users/me/activities')  
+    console.log('%s:%s/%s methods:[GET] ',process.env.HOST,process.env.MY_PORT,'users/me') 
 })
+
 
 server.use(bodyParser.json())
 server.use(cors())
