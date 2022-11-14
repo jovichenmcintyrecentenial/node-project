@@ -2,9 +2,10 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel.js');
 const error = require('./../utils/errors.js')
-//promisify used to make function that usually use a callback only become awaitable
-const { promisify } = require('util');
 
+
+
+//get all activities for users
 module.exports.getUserMyActivities = async (req, res, next) => {
     
     //find user recent activty in database based on user id
@@ -26,6 +27,7 @@ module.exports.getUserMyActivities = async (req, res, next) => {
     })
 }
 
+//get current login in user information
 module.exports.getMyUser = async (req, res, next) => {
     
     //find user recent activty in database based on user id
@@ -34,12 +36,12 @@ module.exports.getMyUser = async (req, res, next) => {
         //if error return the error response
         if (error) return next(new Error(JSON.stringify(error.errors)))
 
-        //if patient found bring patient object
+        //if patient found bring user object
         if (user) {
             console.log(user)
             res.send(user)
         } else 
-        //if unable to find patient return 404
+        //if unable to find user return 404
         {
             console.log('Not Founded')
             res.send(404)
@@ -47,7 +49,7 @@ module.exports.getMyUser = async (req, res, next) => {
     })
 }
 
-//handler for adding a patient
+//handler for creating new user activity
 module.exports.createActivity = async (user_id,activity_type, image, title,related_id) => {
     //extract arguements from request body
 
@@ -64,7 +66,7 @@ module.exports.createActivity = async (user_id,activity_type, image, title,relat
         throw new Error('undefined related_id');
     }
 
-    //create new Patient model base on requests information
+    //create new activity model 
     var newActivity = {
         activity_type: activity_type,
         image: image,
@@ -72,13 +74,13 @@ module.exports.createActivity = async (user_id,activity_type, image, title,relat
         related_id: related_id,
     };
 
-    //find user based on email address
+    //find user based on id
     const user = await User.findOne({
         _id: user_id,
     }).select('+activities');
-
+    //add activity to user object
     user.activities.push(newActivity)
-    //save new patient data to database
+    //save user data to database
     await user.save();
 
     return true;
