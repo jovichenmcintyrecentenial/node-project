@@ -279,19 +279,21 @@ module.exports.addPatientsTestRecord = async (req, res, next) => {
 //delete a single test result for patient 
 module.exports.deletePatientTest = async (req, res, next) => {
 
-    console.log(req.params.patient_id)
+   
     //find patient base on id
     Patient.findOne({ _id: req.params.patient_id }).select('+tests').exec(async function (error, patient)  {
         
         //if error return the error response
-        if (error) return next(new Error(JSON.stringify(error.errors)))
+        if (error) return next(new Error(JSON.stringify(error)))
         
         try {
             var currentSizeOfTests = patient.tests.length
             patient.tests.pull({_id:req.params.test_id})
             //if list is not short that initilze size test not found
             if(currentSizeOfTests == patient.tests.length){
-                throw new Error('test not found')
+                console.log('Not Found')
+                return res.sendStatus(404)
+                // throw new Error('test not found')
             }
             patient.save()
             //log activity on user activity
@@ -301,18 +303,10 @@ module.exports.deletePatientTest = async (req, res, next) => {
                 null,
                 patient.first_name+' '+patient.last_name,
                 patient._id)
+            return res.sendStatus(200)
         } catch (error) {
             if (error) return next(error)
         }
-        //if patient found bring patient object
-        if (patient) {
-            // console.log(patient)
-            res.sendStatus(200)
-        } else 
-        //if unable to find patient return 404
-        {
-            console.log('Not Found')
-            res.sendStatus(404)
-        }
+
     })
 }
