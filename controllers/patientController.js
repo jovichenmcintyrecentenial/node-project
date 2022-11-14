@@ -241,7 +241,7 @@ module.exports.addPatientsTestRecord = async (req, res, next) => {
 
         //if patient found bring patient object
         if (patient) {
-            console.log(newTestsResults)
+  
             patient.tests.push(newTestsResults)
         
             //save new patient data to database
@@ -259,7 +259,8 @@ module.exports.addPatientsTestRecord = async (req, res, next) => {
                 } catch (error) {
                     if (error) return next(new Error(JSON.stringify(error)))
                 }
-                console.log(result)
+                // console.log(result
+                console.log(patient.tests[patient.tests.length-1])
                 //return newly created test results if added successfully
                 res.status(201).send( patient.tests[patient.tests.length-1])
             })
@@ -304,6 +305,42 @@ module.exports.deletePatientTest = async (req, res, next) => {
                 patient.first_name+' '+patient.last_name,
                 patient._id)
             return res.sendStatus(200)
+        } catch (error) {
+            if (error) return next(error)
+        }
+
+    })
+}
+
+
+//update a single test result for patient 
+module.exports.updatePatientTest = async (req, res, next) => {
+    
+    //is body empty or null return error
+    if(req.body === undefined || isEmpty(req.body)){
+        return error.Error(req,res,next,'no data in body')
+    }
+    //find patient base on id
+    Patient.findOne({ _id: req.params.patient_id }).select('+tests').exec(async function (error, patient)  {
+        
+        //if error return the error response
+        if (error) return next(new Error(JSON.stringify(error)))
+        
+        try {
+            //get test with id and save to varible
+            var test = patient.tests.id(req.params.test_id)
+            //if list is not short that initilze size test not found
+            test.set(req.body)
+            patient.save()
+            //log activity on user activity
+            createActivity(
+                req.userId,
+                Activity.updatePatientTest,
+                null,
+                patient.first_name+' '+patient.last_name,
+                patient._id)
+            console.log(test)
+            return res.send(test)
         } catch (error) {
             if (error) return next(error)
         }
