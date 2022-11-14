@@ -4,7 +4,6 @@ const Patient = require('../models/patientModel.js');
 const { isEmpty } = require('../utils/utils.js');
 const { default: mongoose } = require('mongoose');
 
-
 //handler for adding a patient
 module.exports.addPatient = async (req, res, next) => {
     //extract arguements from request body
@@ -217,8 +216,8 @@ module.exports.addPatientsTestRecord = async (req, res, next) => {
                 //if error return error
                 if (error) return next(new Error(JSON.stringify(error.errors)))
                 console.log(result)
-                //return newly created patient if added successfully
-                res.status(201).send( result)
+                //return newly created test results if added successfully
+                res.status(201).send( patient.tests[patient.tests.length-1])
             })
         } else 
         //if unable to find patient return 404

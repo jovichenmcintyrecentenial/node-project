@@ -38,7 +38,7 @@ module.exports.login = async (req, res, next) => {
         //find user based on email address
         const user = await User.findOne({
             email,
-        });
+        }).select('+password');
         //if that user don't exist or the password on that user don't matches the password from request then response with error
         if(!user || password != user.password){
             console.log('Invalid email or password')
