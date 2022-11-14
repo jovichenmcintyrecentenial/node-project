@@ -1,5 +1,6 @@
 //import express
 const express = require('express');
+const { getUserMyActivities, getMyUser } = require('../controllers/userController');
 //create router to append routes to
 const router = express.Router();
 //get handlers from controller
@@ -12,7 +13,10 @@ router.post('/users/login', login);
 
 //add gaurd handle to verify token sent in header
 router.use(gaurd);
+
 //anything route below this point request a token to function
+router.get('/users/me/activities', getUserMyActivities);
+router.get('/users/me', getMyUser);
 
 module.exports.userRoutes = router
 

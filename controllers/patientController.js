@@ -2,7 +2,10 @@
 const error = require('./../utils/errors.js')
 const Patient = require('../models/patientModel.js');
 const { isEmpty } = require('../utils/utils.js');
+const { Activity } = require('../utils/constants.js');
 const { default: mongoose } = require('mongoose');
+const { createActivity } = require('./userController.js');
+
 
 //handler for adding a patient
 module.exports.addPatient = async (req, res, next) => {
@@ -48,6 +51,17 @@ module.exports.addPatient = async (req, res, next) => {
     newPatient.save(function (error, result) {
         //if error return error
         if (error) return next(new Error(JSON.stringify(error.errors)))
+        try {
+            //log activity on user activity
+            createActivity(
+                req.userId,
+                Activity.addPatient,
+                null,
+                newPatient.first_name+' '+newPatient.last_name,
+                newPatient._id)
+        } catch (error) {
+            if (error) return next(new Error(JSON.stringify(error.errors)))
+        }
         console.log(result)
         //return newly created patient if added successfully
         res.status(201).send( result)
@@ -75,11 +89,10 @@ module.exports.getAllPatients = async (req, res, next) => {
 }
 
 
-
 //get a single patient information
 module.exports.getPatient = async (req, res, next) => {
     //find patient in database based on user id
-    Patient.findOne({ _id: req.params.id }).exec(function (error, patient) {
+    Patient.findOne({ _id: req.params.id }).select('+tests').exec(function (error, patient) {
         
         //if error return the error response
         if (error) return next(new Error(JSON.stringify(error.errors)))
@@ -112,7 +125,17 @@ module.exports.deletePatient = async (req, res, next) => {
         
         //if error return the error response
         if (error) return next(new Error(JSON.stringify(error.errors)))
-
+        try {
+            //log activity on user activity
+            createActivity(
+                req.userId,
+                Activity.addTest,
+                null,
+                patient.first_name+' '+patient.last_name,
+                patient._id)
+        } catch (error) {
+            if (error) return next(new Error(JSON.stringify(error.errors)))
+        }
         //if patient found bring patient object
         if (patient) {
             console.log(patient)
@@ -147,7 +170,17 @@ module.exports.updatePatient = async (req, res, next) => {
         
         //if error return the error response
         if (error) return next(new Error(JSON.stringify(error.errors)))
-
+        try {
+            //log activity on user activity
+            createActivity(
+                req.userId,
+                Activity.updatePatient,
+                null,
+                patient.first_name+' '+patient.last_name,
+                patient._id)
+        } catch (error) {
+            if (error) return next(new Error(JSON.stringify(error.errors)))
+        }
         //if patient found bring patient object
         if (patient) {
             console.log(patient)
@@ -201,7 +234,7 @@ module.exports.addPatientsTestRecord = async (req, res, next) => {
         notes: notes,
     };
     
-    await Patient.findOne({ _id: req.params.id }).exec(function (error, patient) {
+    await Patient.findOne({ _id: req.params.id }).select('+tests').exec(function (error, patient) {
         
         //if error return the error response
         if (error) return next(new Error(JSON.stringify(error.errors)))
@@ -215,6 +248,17 @@ module.exports.addPatientsTestRecord = async (req, res, next) => {
             patient.save(function (error, result) {
                 //if error return error
                 if (error) return next(new Error(JSON.stringify(error.errors)))
+                try {
+                    //log activity on user activies
+                    createActivity(
+                        req.userId,
+                        Activity.addTest,
+                        null,
+                        patient.first_name+' '+patient.last_name,
+                        patient._id)
+                } catch (error) {
+                    if (error) return next(new Error(JSON.stringify(error.errors)))
+                }
                 console.log(result)
                 //return newly created test results if added successfully
                 res.status(201).send( patient.tests[patient.tests.length-1])

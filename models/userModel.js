@@ -1,4 +1,5 @@
 var mongoose = require ('mongoose');
+const activitySchema = require('./activityModel');
 
 //define user schema with createAt and updateAt timestamps
 var userSchema = new mongoose.Schema({
@@ -12,6 +13,10 @@ var userSchema = new mongoose.Schema({
         unique: true,
         lowercase: true,
     }, 
+    activities: {
+        type:[activitySchema],
+        select:false
+    },
     password: {
         type: String,
         required: [true, 'password required'],

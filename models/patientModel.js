@@ -23,7 +23,10 @@ var patientSchema = new mongoose.Schema({
         type: String,
         required: [true, 'conditions required'],
     },
-    tests: [testSchema],
+    tests: {
+        type:[testSchema],
+        select:false
+    },
     allergies: {
         type: String,
         required: [true, 'allergies required'],
