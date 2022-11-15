@@ -360,7 +360,7 @@ module.exports.getPatientsTestRecord = async (req, res, next) => {
         //if error return the error response
         if (error) return next(new Error(JSON.stringify(error.errors)))
 
-        //if patient found bring patient object
+        //if patient found return patient tests
         if (patient) {
             console.log(patient.tests)
             res.send(patient.tests)
