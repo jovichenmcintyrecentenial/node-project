@@ -7,12 +7,13 @@ const { promisify } = require('util');
 
 
 //create JWT token with user's id and user's name
-const createToken = (id,name) => {
+const createToken = (id,name,user) => {
     //sign token using a JWT secert key with an expiration duration
     return jwt.sign(
         {
             id,
             name,
+            user
         },
         process.env.JWT_KEY,
         {
@@ -47,8 +48,17 @@ module.exports.login = async (req, res, next) => {
         }
         //if user exist and password match
         else{
+            //strip user object
+            user.password = undefined
+            user.activities = undefined
+            user.__v = undefined
+            user.createdAt = undefined
+            user.updatedAt = undefined
+
+
+
             //response with token as json
-            var token = createToken(user._id,user.name)
+            var token = createToken(user._id,user.name,user)
             console.log({token:token})
             res.send({token:token})
         }
@@ -87,6 +97,8 @@ module.exports.gaurd = async (req, res, next) => {
                         //store userId id and user name in request
                         req.userId = decode.id
                         req.userName = decode.name
+                        req.user = decode.user
+
                         //move on to next handle
                         return next()
                     }

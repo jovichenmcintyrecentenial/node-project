@@ -46,18 +46,20 @@ db.once('open', function() {
 
 // // Creating new patient.
 // var newUser = new User({
-//     name: 'jovi',
+//     name: 'John Does',
+//     job_title: 'Registered Nurse',
 //     password: '123456789',
-//     email: 'jm@gmail.com'
+//     email: 'jd@gmail.com'
 // });
 
 // // Create the patient and saving to db
 // newUser.save(function (error, result) {
-//     console.log(result) this a test
+//     console.log(error) 
+//     console.log(result) 
 // })
 
 
-server.use(apiMonitor)
+// server.use(apiMonitor)
 server.use(userRoutes)
 server.use(patientRoutes)
 

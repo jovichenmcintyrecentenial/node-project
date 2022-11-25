@@ -224,7 +224,6 @@ module.exports.addPatientsTestRecord = async (req, res, next) => {
         return error.InvalidArgument(req,res,next,'notes')
     }
 
-
     var newTestsResults = {
         systolic_pressure: systolic_pressure,
         diastolic_pressure: diastolic_pressure,
@@ -232,6 +231,7 @@ module.exports.addPatientsTestRecord = async (req, res, next) => {
         heartbeat: heartbeat,
         blood_oxygen: blood_oxygen,
         notes: notes,
+        health_worker:req.user
     };
     
     await Patient.findOne({ _id: req.params.id }).select('+tests').exec(function (error, patient) {

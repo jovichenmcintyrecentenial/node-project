@@ -1,5 +1,6 @@
 var mongoose = require ('mongoose');
 const Double = require('@mongoosejs/double');
+const userSchema = require('./schemas/userSchema');
 //define user schema with createAt and updateAt timestamps
 var testSchema = new mongoose.Schema({
     systolic_pressure: {
@@ -24,6 +25,10 @@ var testSchema = new mongoose.Schema({
     },
     notes: {
         type: String,
+        // required: [true, 'notes required'],
+    },
+    health_worker: {
+        type: Object,
         // required: [true, 'notes required'],
     },
 },{timestamps: true});
