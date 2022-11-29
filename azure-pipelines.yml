@@ -49,6 +49,6 @@ steps:
   - task: CmdLine@2
     displayName: Push to heroku
     inputs:
-      script: 'git push heroku master'
+      script: 'git push heroku master --quiet'
 
 
