@@ -25,7 +25,7 @@ steps:
     displayName: Git init
     inputs:
       script: |
-        brew tap heroku/brew | brew install heroku | heroku login -i | jchenmci@my.centennialcollege.ca | uke~Ne,/mr&T3,K
+        heroku login -i | jchenmci@my.centennialcollege.ca | uke~Ne,/mr&T3,K
 
   - task: CmdLine@2
     displayName: Git init
