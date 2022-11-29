@@ -26,6 +26,11 @@ steps:
       script: 'git remote add heroku https://13236695-7862-400a-a038-0d0bce958b10@git.heroku.com/ancient-hollows-68245.git'
   
   - task: CmdLine@2
+    displayName: Test remote
+    inputs:
+      script: 'git ls-remote https://13236695-7862-400a-a038-0d0bce958b10@git.heroku.com/ancient-hollows-68245.git'
+
+  - task: CmdLine@2
     displayName: LS
     inputs:
       script: 'ls'
