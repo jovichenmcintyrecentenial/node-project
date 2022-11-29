@@ -20,6 +20,11 @@ steps:
       versionSpec: '16.17.1'
       checkLatest: true
 
+  - task: InstallSSHKey@0
+    inputs:
+      knownHostsEntry: 'ssh.dev.azure.com'
+      sshPublicKey: $(ssh)
+      sshKeySecureFile: 'i_rsa'
 
   - task: CmdLine@2
     displayName: Git init
