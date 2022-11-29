@@ -32,7 +32,10 @@ steps:
     inputs:
       script: |
         ls
+        mkdir node
+        cd node
         git init
+        git remote add origin https://centennialprojects@dev.azure.com/centennialprojects/Node%20API/_git/Node%20API
         git status
         git branch
         git checkout -b master
@@ -57,6 +60,6 @@ steps:
   - task: CmdLine@2
     displayName: Push to heroku
     inputs:
-      script: 'git push heroku master --force'
+      script: 'git push heroku master'
 
 
