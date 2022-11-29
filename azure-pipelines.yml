@@ -22,9 +22,14 @@ steps:
 
 
   - task: CmdLine@2
-    displayName: Checkout master
+    displayName: Git init
     inputs:
-      script: 'git checkout master'
+      script: |
+        ls
+        git init
+        git status
+        git branch
+        git checkout -b master
 
   - task: CmdLine@2
     displayName: Add Heroku remote address
