@@ -41,10 +41,16 @@ steps:
       script: 'npm install'
 
   - task: CopyFiles@2
-        displayName: Copy IPA
-        inputs:
-          contents: '**/*.ipa'
-          targetFolder: '$(build.artifactStagingDirectory)'
+    displayName: Copy IPA
+    inputs:
+      contents: '/'
+      targetFolder: '$(build.artifactStagingDirectory)'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+
 
   # - task: CmdLine@2
   #   displayName: Show remote
