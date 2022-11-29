@@ -48,11 +48,6 @@ steps:
 
 
   - task: CmdLine@2
-    displayName: Show remote
-    inputs:
-      script: 'git remote show heroku'
-
-  - task: CmdLine@2
     displayName: Push to heroku
     inputs:
       script: 'git push heroku master'
