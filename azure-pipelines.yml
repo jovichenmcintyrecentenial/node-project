@@ -31,7 +31,7 @@ steps:
       script: 'npm install'
 
   - task: CmdLine@2
-    displayName: Download dependencies
+    displayName: Push to heroku
     inputs:
       script: 'git remote add heroku master'
 
