@@ -20,15 +20,15 @@ steps:
       versionSpec: '16.17.1'
       checkLatest: true
 
-  # - task: CmdLine@2
-  #   displayName: Add Heroku remote address
-  #   inputs:
-  #     script: 'git remote add heroku https://13236695-7862-400a-a038-0d0bce958b10@git.heroku.com/ancient-hollows-68245.git'
+  - task: CmdLine@2
+    displayName: Add Heroku remote address
+    inputs:
+      script: 'git remote add heroku https://13236695-7862-400a-a038-0d0bce958b10@git.heroku.com/ancient-hollows-68245.git'
   
-  # - task: CmdLine@2
-  #   displayName: Test remote
-  #   inputs:
-  #     script: 'git ls-remote https://13236695-7862-400a-a038-0d0bce958b10@git.heroku.com/ancient-hollows-68245.git'
+  - task: CmdLine@2
+    displayName: Test remote
+    inputs:
+      script: 'git ls-remote https://13236695-7862-400a-a038-0d0bce958b10@git.heroku.com/ancient-hollows-68245.git'
 
   - task: CmdLine@2
     displayName: LS
@@ -40,26 +40,26 @@ steps:
     inputs:
       script: 'npm install'
 
-  - task: CopyFiles@2
-    displayName: Copy IPA
-    inputs:
-      contents: '$(Build.SourcesDirectory)'
-      targetFolder: '$(build.artifactStagingDirectory)'
-
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'drop'
-
-
-  # - task: CmdLine@2
-  #   displayName: Show remote
+  # - task: CopyFiles@2
+  #   displayName: Copy IPA
   #   inputs:
-  #     script: 'git remote show heroku'
+  #     contents: '$(Build.SourcesDirectory)'
+  #     targetFolder: '$(build.artifactStagingDirectory)'
 
-  # - task: CmdLine@2
-  #   displayName: Push to heroku
+  # - task: PublishBuildArtifacts@1
   #   inputs:
-  #     script: 'git push heroku master'
+  #     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+  #     ArtifactName: 'drop'
+
+
+  - task: CmdLine@2
+    displayName: Show remote
+    inputs:
+      script: 'git remote show heroku'
+
+  - task: CmdLine@2
+    displayName: Push to heroku
+    inputs:
+      script: 'git push heroku master'
 
 
