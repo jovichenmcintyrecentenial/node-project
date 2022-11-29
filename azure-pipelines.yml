@@ -23,7 +23,7 @@ steps:
   - task: CmdLine@2
     displayName: Add Heroku remote address
     inputs:
-      script: 'git remote add heroku https://$(pat)@git.heroku.com/ancient-hollows-68245.git'
+      script: 'git remote add heroku https://23845d7b-06c7-487b-ad2d-f1602861cc7e@git.heroku.com/ancient-hollows-68245.git'
   
   - task: CmdLine@2
     displayName: LS
