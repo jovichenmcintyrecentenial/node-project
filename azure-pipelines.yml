@@ -10,10 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Add Heroku Remote'
+  - task: CmdLine@2
+    inputs:
+      script: 'git remote add heroku https://git.heroku.com/ancient-hollows-68245.git'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
