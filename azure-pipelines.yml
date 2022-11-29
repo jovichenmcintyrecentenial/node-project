@@ -37,10 +37,11 @@ steps:
         git branch
         git checkout -b master
 
+
   - task: CmdLine@2
     displayName: Add Heroku remote address
     inputs:
-      script: 'git remote add heroku https://git.heroku.com/ancient-hollows-68245.git'
+      script: 'git remote add heroku https://7db74263-8fb2-490e-be4b-146d1a55ae8e@git.heroku.com/ancient-hollows-68245.git'
   
   - task: CmdLine@2
     displayName: LS
