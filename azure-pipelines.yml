@@ -11,6 +11,7 @@ pool:
 
 steps:
   - task: CmdLine@2
+    displayName: Add Heroku remote address
     inputs:
       script: 'git remote add heroku https://git.heroku.com/ancient-hollows-68245.git'
 
