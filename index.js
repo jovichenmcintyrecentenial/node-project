@@ -17,17 +17,19 @@ dotenv.config({
 
 //create server
 var server = express();
+var port = (process.env.PORT || process.env.MY_PORT)
+var host = (process.env.HOST || process.env.MY_HOST)
 
 //list to serve and display avaiblem methods
-server.listen( process.env.PORT || process.env.MY_PORT, process.env.HOST, function (){
+server.listen( port, process.env.HOST, function (){
     console.log('Server %s listening at %s', server.name, process.env.SERVER_NAME)
-    console.log('%s:%s/%s methods:[POST] ',process.env.HOST,process.env.MY_PORT,'users/login ')  
-    console.log('%s:%s/%s methods:[GET, POST]',process.env.HOST,process.env.MY_PORT,'patients')  
-    console.log('%s:%s/%s methods:[GET,DELETE,PUT] ',process.env.HOST,process.env.MY_PORT,'patients/{id}')  
-    console.log('%s:%s/%s methods:[GET, POST] ',process.env.HOST,process.env.MY_PORT,'patients/{id}/tests')
-    console.log('%s:%s/%s methods:[DELETE] ',process.env.HOST,process.env.MY_PORT,'patients/{id}/tests/{id}')  
-    console.log('%s:%s/%s methods:[GET] ',process.env.HOST,process.env.MY_PORT,'users/me/activities')  
-    console.log('%s:%s/%s methods:[GET] ',process.env.HOST,process.env.MY_PORT,'users/me') 
+    console.log('%s:%s/%s methods:[POST] ',host,port,'users/login ')  
+    console.log('%s:%s/%s methods:[GET, POST]',host,port,'patients')  
+    console.log('%s:%s/%s methods:[GET,DELETE,PUT] ',host,port,'patients/{id}')  
+    console.log('%s:%s/%s methods:[GET, POST] ',host,port,'patients/{id}/tests')
+    console.log('%s:%s/%s methods:[DELETE] ',host,port,'patients/{id}/tests/{id}')  
+    console.log('%s:%s/%s methods:[GET] ',host,port,'users/me/activities')  
+    console.log('%s:%s/%s methods:[GET] ',host,port,'users/me') 
 })
 
 
