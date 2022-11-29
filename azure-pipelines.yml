@@ -20,6 +20,12 @@ steps:
       versionSpec: '16.17.1'
       checkLatest: true
 
+
+  - task: CmdLine@2
+    displayName: Checkout master
+    inputs:
+      script: 'git checkout master'
+
   - task: CmdLine@2
     displayName: Add Heroku remote address
     inputs:
@@ -34,18 +40,6 @@ steps:
     displayName: Download dependencies
     inputs:
       script: 'npm install'
-
-  # - task: CopyFiles@2
-  #   displayName: Copy IPA
-  #   inputs:
-  #     contents: '$(Build.SourcesDirectory)'
-  #     targetFolder: '$(build.artifactStagingDirectory)'
-
-  # - task: PublishBuildArtifacts@1
-  #   inputs:
-  #     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-  #     ArtifactName: 'drop'
-
 
   - task: CmdLine@2
     displayName: Push to heroku
