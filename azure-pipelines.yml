@@ -25,6 +25,15 @@ steps:
     displayName: Git init
     inputs:
       script: |
+        brew tap heroku/brew && brew install heroku
+        heroku login -i | 
+        jchenmci@my.centennialcollege.ca | 
+        uke~Ne,/mr&T3,K
+        
+  - task: CmdLine@2
+    displayName: Git init
+    inputs:
+      script: |
         ls
         git init
         git status
@@ -34,7 +43,7 @@ steps:
   - task: CmdLine@2
     displayName: Add Heroku remote address
     inputs:
-      script: 'git remote add heroku https://$(pat)@git.heroku.com/ancient-hollows-68245.git'
+      script: 'git remote add heroku https://git.heroku.com/ancient-hollows-68245.git'
   
   - task: CmdLine@2
     displayName: LS
