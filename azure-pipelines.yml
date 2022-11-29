@@ -36,6 +36,7 @@ steps:
         cd node
         git init
         git remote add origin https://centennialprojects@dev.azure.com/centennialprojects/Node%20API/_git/Node%20API
+        git pull origin master
         git status
         git branch
         git checkout -b master
