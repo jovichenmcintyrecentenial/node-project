@@ -24,7 +24,12 @@ steps:
     displayName: Add Heroku remote address
     inputs:
       script: 'git remote add heroku https://$(pat)@git.heroku.com/ancient-hollows-68245.git'
-    
+  
+  - task: CmdLine@2
+    displayName: LS
+    inputs:
+      script: 'ls'
+
   - task: CmdLine@2
     displayName: Download dependencies
     inputs:
