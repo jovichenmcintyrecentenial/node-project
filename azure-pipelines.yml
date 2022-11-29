@@ -20,15 +20,15 @@ steps:
       versionSpec: '16.17.1'
       checkLatest: true
 
-  - task: CmdLine@2
-    displayName: Add Heroku remote address
-    inputs:
-      script: 'git remote add heroku https://13236695-7862-400a-a038-0d0bce958b10@git.heroku.com/ancient-hollows-68245.git'
+  # - task: CmdLine@2
+  #   displayName: Add Heroku remote address
+  #   inputs:
+  #     script: 'git remote add heroku https://13236695-7862-400a-a038-0d0bce958b10@git.heroku.com/ancient-hollows-68245.git'
   
-  - task: CmdLine@2
-    displayName: Test remote
-    inputs:
-      script: 'git ls-remote https://13236695-7862-400a-a038-0d0bce958b10@git.heroku.com/ancient-hollows-68245.git'
+  # - task: CmdLine@2
+  #   displayName: Test remote
+  #   inputs:
+  #     script: 'git ls-remote https://13236695-7862-400a-a038-0d0bce958b10@git.heroku.com/ancient-hollows-68245.git'
 
   - task: CmdLine@2
     displayName: LS
@@ -40,14 +40,20 @@ steps:
     inputs:
       script: 'npm install'
 
-  - task: CmdLine@2
-    displayName: Show remote
-    inputs:
-      script: 'git remote show heroku'
+  - task: CopyFiles@2
+        displayName: Copy IPA
+        inputs:
+          contents: '**/*.ipa'
+          targetFolder: '$(build.artifactStagingDirectory)'
 
-  - task: CmdLine@2
-    displayName: Push to heroku
-    inputs:
-      script: 'git push heroku master'
+  # - task: CmdLine@2
+  #   displayName: Show remote
+  #   inputs:
+  #     script: 'git remote show heroku'
+
+  # - task: CmdLine@2
+  #   displayName: Push to heroku
+  #   inputs:
+  #     script: 'git push heroku master'
 
 
