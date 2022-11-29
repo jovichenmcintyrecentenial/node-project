@@ -43,7 +43,7 @@ steps:
   - task: CopyFiles@2
     displayName: Copy IPA
     inputs:
-      contents: '/'
+      contents: '$(Build.SourcesDirectory)'
       targetFolder: '$(build.artifactStagingDirectory)'
 
   - task: PublishBuildArtifacts@1
