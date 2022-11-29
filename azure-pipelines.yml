@@ -25,7 +25,8 @@ steps:
     displayName: Git init
     inputs:
       script: |
-        heroku login -i
+        HEROKU_API_KEY="075d24bc-0185-4299-a893-c7e8b8e075f7"
+        heroku run ls --app ancient-hollows-68245
         jchenmci@my.centennialcollege.ca 
         $(pat)
 
