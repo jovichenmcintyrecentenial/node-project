@@ -25,7 +25,9 @@ steps:
     displayName: Git init
     inputs:
       script: |
-        heroku login -i | jchenmci@my.centennialcollege.ca | uke~Ne,/mr&T3,K
+        heroku login -i
+        jchenmci@my.centennialcollege.ca 
+        $(pat)
 
   - task: CmdLine@2
     displayName: Git init
