@@ -54,7 +54,7 @@ steps:
         git pull origin master
         git status
         git branch
-        git checkout -b master
+        git checkout master
         git log
         git remote add heroku https://jovi848:7db74263-8fb2-490e-be4b-146d1a55ae8e@git.heroku.com/ancient-hollows-68245.git
         git push heroku master
