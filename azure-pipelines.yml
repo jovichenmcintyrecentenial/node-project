@@ -3,6 +3,9 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+variables:
+  - group: Node
+
 trigger:
 - master
 
@@ -10,8 +13,26 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+
+  - task: NodeTool@0
+    inputs:
+      versionSource: 'spec'
+      versionSpec: '6.x'
+      checkLatest: true
+
   - task: CmdLine@2
     displayName: Add Heroku remote address
     inputs:
-      script: 'git remote add heroku https://git.heroku.com/ancient-hollows-68245.git'
+      script: 'git remote add heroku https://$(pat)@git.heroku.com/ancient-hollows-68245.git'
+    
+  - task: CmdLine@2
+    displayName: Download dependencies
+    inputs:
+      script: 'npm install'
+
+  - task: CmdLine@2
+    displayName: Download dependencies
+    inputs:
+      script: 'git remote add heroku master'
+
 
