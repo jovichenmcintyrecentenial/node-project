@@ -19,7 +19,7 @@ dotenv.config({
 var server = express();
 
 //list to serve and display avaiblem methods
-server.listen(process.env.MY_PORT, process.env.HOST, function (){
+server.listen( process.env.PORT || process.env.MY_PORT, process.env.HOST, function (){
     console.log('Server %s listening at %s', server.name, process.env.SERVER_NAME)
     console.log('%s:%s/%s methods:[POST] ',process.env.HOST,process.env.MY_PORT,'users/login ')  
     console.log('%s:%s/%s methods:[GET, POST]',process.env.HOST,process.env.MY_PORT,'patients')  
