@@ -36,6 +36,7 @@ steps:
         git status
         git branch
         git checkout -b master
+        git log
 
 
   - task: CmdLine@2
