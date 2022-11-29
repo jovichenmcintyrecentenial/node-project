@@ -27,32 +27,11 @@ steps:
       sshKeySecureFile: 'i_rsa'
 
   - task: CmdLine@2
-    displayName: Git init
+    displayName: Connect to herouke using token
     inputs:
       script: |
         HEROKU_API_KEY='075d24bc-0185-4299-a893-c7e8b8e075f7' heroku run ls --app ancient-hollows-68245
 
-  - task: CmdLine@2
-    displayName: Git init
-    inputs:
-      script: |
-        ls
-        mkdir node
-        cd node
-        git init
-        git remote add origin git@ssh.dev.azure.com:v3/centennialprojects/Node%20API/Node%20API
-        git pull origin master
-        git status
-        git branch
-        git checkout -b master
-        git log
-
-
-  - task: CmdLine@2
-    displayName: Add Heroku remote address
-    inputs:
-      script: 'git remote add heroku https://jovi848:7db74263-8fb2-490e-be4b-146d1a55ae8e@git.heroku.com/ancient-hollows-68245.git'
-  
   - task: CmdLine@2
     displayName: LS
     inputs:
@@ -66,6 +45,18 @@ steps:
   - task: CmdLine@2
     displayName: Push to heroku
     inputs:
-      script: 'git push heroku master'
+      script: |
+        ls
+        mkdir node
+        cd node
+        git init
+        git remote add origin git@ssh.dev.azure.com:v3/centennialprojects/Node%20API/Node%20API
+        git pull origin master
+        git status
+        git branch
+        git checkout -b master
+        git log
+        git remote add heroku https://jovi848:7db74263-8fb2-490e-be4b-146d1a55ae8e@git.heroku.com/ancient-hollows-68245.git
+        git push heroku master
 
 
