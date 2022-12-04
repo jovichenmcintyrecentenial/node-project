@@ -6,9 +6,6 @@
 variables:
   - group: Node
 
-trigger:
-- master
-
 pool:
   vmImage: ubuntu-latest
 
@@ -55,8 +52,6 @@ steps:
         git status
         git branch
         git checkout master
-        git log
-        git remote add heroku https://jovi848:7db74263-8fb2-490e-be4b-146d1a55ae8e@git.heroku.com/ancient-hollows-68245.git
 
 
   - task: CmdLine@2
@@ -83,12 +78,6 @@ steps:
       summaryFileLocation: '$(Build.SourcesDirectory)/node/coverage/cobertura-coverage.xml'
       failIfCoverageEmpty: true
 
-  - task: CmdLine@2
-    displayName: Deploy to heroku
-    inputs:
-      script: |
-        ls
-        cd node
-        git push heroku master
+
 
 
