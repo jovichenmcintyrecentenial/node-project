@@ -6,6 +6,10 @@
 variables:
   - group: Node
 
+trigger:
+  branches:
+    exclude:
+      - '*'
 pool:
   vmImage: ubuntu-latest
 
