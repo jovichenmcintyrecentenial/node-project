@@ -129,7 +129,7 @@ module.exports.deletePatient = async (req, res, next) => {
             //log activity on user activity
             createActivity(
                 req.userId,
-                Activity.addTest,
+                Activity.deletePatient,
                 null,
                 patient.first_name+' '+patient.last_name,
                 patient._id)
