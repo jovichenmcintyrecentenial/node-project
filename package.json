@@ -15,7 +15,7 @@
         "debug": "node index.js",
         "start": "node index.js",
         "test": "mocha test/**/*.js",
-        "test-coverage": "nyc --reporter=html  --all -x \"./node_modules/*\" -x \"./coverage/*\" mocha"
+        "test-coverage": "nyc --reporter=cobertura  --all -x \"./node_modules/*\" -x \"./coverage/*\" mocha"
     },
     "author": "Jovi Chen-McIntyre",
     "private": true,
