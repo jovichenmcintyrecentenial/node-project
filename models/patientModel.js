@@ -1,5 +1,5 @@
 var mongoose = require ('mongoose');
-const testSchema = require('./testModel');
+const TestSchema = require('./testModel');
 
 //define patient schema with createAt and updateAt timestamps
 var patientSchema = new mongoose.Schema({
@@ -24,8 +24,8 @@ var patientSchema = new mongoose.Schema({
         required: [true, 'conditions required'],
     },
     tests: {
-        type:[testSchema],
-//        select:false
+        type:[TestSchema],
+        //select:false
     },
     allergies: {
         type: String,

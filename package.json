@@ -13,12 +13,15 @@
     },
     "scripts": {
         "debug": "node index.js",
-        "start": "node index.js"
+        "start": "node index.js",
+        "test": "mocha tests/**/*.js"
     },
     "author": "Jovi Chen-McIntyre",
     "private": true,
     "main": "index.js",
     "devDependencies": {
-        "eslint": "^8.26.0"
+        "chai": "^4.3.7",
+        "eslint": "^8.26.0",
+        "mocha": "^10.1.0"
     }
 }
