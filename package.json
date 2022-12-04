@@ -14,7 +14,8 @@
     "scripts": {
         "debug": "node index.js",
         "start": "node index.js",
-        "test": "mocha tests/**/*.js"
+        "test": "mocha tests/**/*.js",
+        "test-coverage": "nyc --reporter=cobertura mocha tests/**/*.js"
     },
     "author": "Jovi Chen-McIntyre",
     "private": true,
@@ -22,6 +23,7 @@
     "devDependencies": {
         "chai": "^4.3.7",
         "eslint": "^8.26.0",
-        "mocha": "^10.1.0"
+        "mocha": "^10.1.0",
+        "nyc": "^15.1.0"
     }
 }
