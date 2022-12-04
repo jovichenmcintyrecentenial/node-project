@@ -27,6 +27,9 @@ var TestSchema = new mongoose.Schema({
         type: String,
         // required: [true, 'notes required'],
     },
+    coniditon: {
+        type: String,
+    },
     health_worker: {
         type: Object,
         // required: [true, 'notes required'],
@@ -36,13 +39,48 @@ var TestSchema = new mongoose.Schema({
 //compiles the schema into a model.
 // const TestsModel = mongoose.model('TestsModel', testSchema);
 
+
 const Evaluation = {
-    NeedsMonitoring: 'NEEDS_MONITORING',
     Emergency: 'EMERGENCY',
+    NeedsMonitoring: 'NEEDS_MONITORING',
     Normal: 'NORMAL'
 }
 
 class Tests {
+
+    static getInt(condition){
+
+        switch(condition) {
+        case Evaluation.Emergency:
+            return 3
+        case Evaluation.NeedsMonitoring:
+            return 2
+        case Evaluation.Normal:
+            return 1
+        }
+        return -1
+    }
+
+    static getPatientStatus(testModel){
+
+
+        const conditions = [this.evalBloodOxygenCondition(testModel.blood_oxygen)
+            , this.evalBloodPressure(testModel.systolic_pressure,testModel.diastolic_pressure)
+            , this.evalHeartRate(testModel.heartbeat)
+            , this.evalRespirtoryRate(testModel.respiratory_rate)];
+        
+        var patientState = Evaluation.Normal
+        
+        for (var i = 0; i < 10; i++) {
+            var condition = conditions[i]
+            if(this.getInt(condition)>this.getInt(patientState)) {
+                patientState = condition
+            }
+        }
+
+        return patientState
+        
+    }
 
     static evalBloodOxygenCondition(blood_oxygen_level){
 

@@ -194,6 +194,7 @@ module.exports.updatePatient = async (req, res, next) => {
     })
 }
 
+
 //handler for adding a patient
 module.exports.addPatientsTestRecord = async (req, res, next) => {
     //extract arguements from request body
