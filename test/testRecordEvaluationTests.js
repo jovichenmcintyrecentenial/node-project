@@ -213,8 +213,5 @@ describe('When evaluating patient condition', function(){
         
     });
 
-   
 
-
-   
 });

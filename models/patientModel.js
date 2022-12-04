@@ -11,6 +11,9 @@ var patientSchema = new mongoose.Schema({
         type: String,
         required: [true, 'last_name required'],
     },
+    health_status: {
+        type: String,
+    },
     gender: {
         type: String,
         required: [true, 'gender required'],
