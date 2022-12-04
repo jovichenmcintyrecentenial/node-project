@@ -73,8 +73,12 @@ steps:
         ls
         cd node
         npm run test-coverage
+        npm run junit-report
 
-
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/test-*.xml'
 
   - task: PublishCodeCoverageResults@1
     inputs:
