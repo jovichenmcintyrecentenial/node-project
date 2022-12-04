@@ -84,7 +84,7 @@ class Tests {
         if(bpm < 0){
             return null
         }
-        
+
         if(bpm >= 110){
             return Evaluation.Emergency
         }
@@ -106,7 +106,7 @@ class Tests {
         if(systolic_pressure >= 180 && diastolic_pressure >= 120) {
             return Evaluation.Emergency
         }
-        else if(systolic_pressure >= 129 && diastolic_pressure >= 80) {
+        else if(systolic_pressure >= 130 && diastolic_pressure >= 80) {
             return Evaluation.NeedsMonitoring
         }
         else if(systolic_pressure <= 90 && diastolic_pressure <= 80) {

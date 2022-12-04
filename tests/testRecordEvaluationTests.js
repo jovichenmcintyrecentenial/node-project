@@ -54,6 +54,7 @@ describe('When evaluating respirtory rate condition', function(){
    
 });
 
+
 describe('When evaluating heart rate condition', function(){
 
     it('should return NEEDS_MONITORING when beats_per_minute >= 100 and < 110', function() {
@@ -81,6 +82,35 @@ describe('When evaluating heart rate condition', function(){
 
     it('should return null when breaths_per_min < 0', function() {
         expect(Tests.evalHeartRate(-1)).to.be.null;
+    });
+
+   
+});
+
+
+describe('When evaluating blood pressure condition', function(){
+
+    it('should return NEEDS_MONITORING', function() {
+        expect(Tests.evalBloodPressure(130,85)).equal(Evaluation.NeedsMonitoring);
+        expect(Tests.evalBloodPressure(130,81)).equal(Evaluation.NeedsMonitoring);
+    });
+
+    it('should return NEEDS_MONITORING', function() {
+        expect(Tests.evalBloodPressure(89,70)).equal(Evaluation.NeedsMonitoring);
+    });
+
+    it('should return EMERGENCY', function() {
+        expect(Tests.evalBloodPressure(180,120)).equal(Evaluation.Emergency);
+        expect(Tests.evalBloodPressure(190,125)).equal(Evaluation.Emergency);
+    });
+
+    it('should return NORMAL when breaths_per_min >= 12 and <= 25', function() {
+        expect(Tests.evalBloodPressure(119,78)).equal(Evaluation.Normal);
+        expect(Tests.evalBloodPressure(120,80)).equal(Evaluation.Normal);
+    });
+
+    it('should return null when breaths_per_min < 0', function() {
+        expect(Tests.evalBloodPressure(-1)).to.be.null;
     });
 
    
