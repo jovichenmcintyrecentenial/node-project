@@ -5,6 +5,7 @@ const { isEmpty } = require('../utils/utils.js');
 const { Activity } = require('../utils/constants.js');
 const { default: mongoose } = require('mongoose');
 const { createActivity } = require('./userController.js');
+const { Tests } = require('../models/testModel.js');
 
 
 //handler for adding a patient
@@ -242,7 +243,7 @@ module.exports.addPatientsTestRecord = async (req, res, next) => {
 
         //if patient found bring patient object
         if (patient) {
-  
+            patient.health_status = Tests.getPatientStatus(newTestsResults)
             patient.tests.push(newTestsResults)
         
             //save new patient data to database
