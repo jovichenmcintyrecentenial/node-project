@@ -15,7 +15,9 @@
         "debug": "node index.js",
         "start": "node index.js",
         "test": "mocha test/**/*.js",
-        "test-coverage": "nyc --reporter=cobertura  --all -x \"./node_modules/*\" -x \"./coverage/*\" mocha"
+        "test-coverage": "nyc --reporter=cobertura --reporter=lcov --all -x \"./node_modules/*\" -x \"./coverage/*\" mocha",
+        "junit-report": "mocha test --reporter mocha-junit-reporter "
+
     },
     "author": "Jovi Chen-McIntyre",
     "private": true,
@@ -24,6 +26,7 @@
         "chai": "^4.3.7",
         "eslint": "^8.26.0",
         "mocha": "^10.1.0",
+        "mocha-junit-reporter": "^2.2.0",
         "nyc": "^15.1.0"
     }
 }
