@@ -1,4 +1,4 @@
-//define imports
+//define imports 
 const errorMiddleware = require('./controllers/errorController.js')
 const {userRoutes} = require('./routes/userRoutes.js')
 const {patientRoutes} = require('./routes/patientRoutes.js')
