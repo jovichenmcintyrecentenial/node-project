@@ -30,6 +30,9 @@ var TestSchema = new mongoose.Schema({
     coniditon: {
         type: String,
     },
+    status: {
+        type: String,
+    },
     health_worker: {
         type: Object,
         // required: [true, 'notes required'],

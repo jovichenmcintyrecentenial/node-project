@@ -201,6 +201,19 @@ module.exports.updatePatient = async (req, res, next) => {
     })
 }
 
+function updateTestAndPatientStatus (patient){
+    var lastTest = null
+    //iterate test result and update test status if needed
+    patient.tests.forEach(function (test) { 
+        if(test.status === undefined || test.status == null){
+            test.status = Tests.getPatientStatus(test)
+        }
+        lastTest = test
+    })
+    //update patient health status to last test results reading
+    patient.health_status = lastTest != null && lastTest.status !== undefined && lastTest.status != null ?lastTest.status:Evaluation.Normal
+}
+
 
 //handler for adding a patient
 module.exports.addPatientsTestRecord = async (req, res, next) => {
@@ -241,6 +254,8 @@ module.exports.addPatientsTestRecord = async (req, res, next) => {
         notes: notes,
         health_worker:req.user
     };
+
+    newTestsResults.status = Tests.getPatientStatus(newTestsResults)
     
     await Patient.findOne({ _id: req.params.id }).select('+tests').exec(function (error, patient) {
         
@@ -249,9 +264,11 @@ module.exports.addPatientsTestRecord = async (req, res, next) => {
 
         //if patient found bring patient object
         if (patient) {
-            patient.health_status = Tests.getPatientStatus(newTestsResults)
+
             patient.tests.push(newTestsResults)
-        
+
+            updateTestAndPatientStatus(patient)
+
             //save new patient data to database
             patient.save(function (error, result) {
                 //if error return error
@@ -288,7 +305,6 @@ module.exports.addPatientsTestRecord = async (req, res, next) => {
 //delete a single test result for patient 
 module.exports.deletePatientTest = async (req, res, next) => {
 
-   
     //find patient base on id
     Patient.findOne({ _id: req.params.patient_id }).select('+tests').exec(async function (error, patient)  {
         
@@ -304,6 +320,7 @@ module.exports.deletePatientTest = async (req, res, next) => {
                 return res.sendStatus(404)
                 // throw new Error('test not found')
             }
+            updateTestAndPatientStatus(patient)
             patient.save()
             //log activity on user activity
             createActivity(
@@ -342,6 +359,10 @@ module.exports.updatePatientTest = async (req, res, next) => {
             var test = patient.tests.id(req.params.test_id)
             //if list is not short that initilze size test not found
             test.set(req.body)
+            test.status = Tests.getPatientStatus(test)
+            updateTestAndPatientStatus(patient)
+
+
             patient.save()
             //log activity on user activity
             createActivity(
