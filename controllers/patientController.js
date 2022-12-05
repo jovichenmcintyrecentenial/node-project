@@ -5,7 +5,7 @@ const { isEmpty } = require('../utils/utils.js');
 const { Activity } = require('../utils/constants.js');
 const { default: mongoose } = require('mongoose');
 const { createActivity } = require('./userController.js');
-const { Tests } = require('../models/testModel.js');
+const { Tests, Evaluation } = require('../models/testModel.js');
 
 
 //handler for adding a patient
@@ -69,16 +69,23 @@ module.exports.addPatient = async (req, res, next) => {
     })
 }
 
+
+
 //handler for getting all patient in database
 module.exports.getAllPatients = async (req, res, next) => {
 
     //search for all patient and return an array
-    const {query} = req.query 
+    const {query,is_unwell} = req.query 
+
     //search for all patient and return an array
-    Patient.find(query === undefined?{}:
+    Patient.find(
         {$or:[
-            {first_name: {$regex : query, $options : 'i'},},
-            {last_name: {$regex : query, $options : 'i'},}]
+            query === undefined?{}:{first_name: {$regex : query, $options : 'i'},},
+            query === undefined?{}:{last_name: {$regex : query, $options : 'i'},},
+        ],
+        $and:[
+            is_unwell?{health_status: {$regex : '('+Evaluation.Emergency+'|'+Evaluation.NeedsMonitoring+')' , $options : 'i'},}:{}
+        ]
         }).exec(function (error, result) {
         //if error return error
         if (error) return next(new Error(JSON.stringify(error.errors)))
@@ -88,7 +95,6 @@ module.exports.getAllPatients = async (req, res, next) => {
     });
 
 }
-
 
 //get a single patient information
 module.exports.getPatient = async (req, res, next) => {
