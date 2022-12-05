@@ -63,7 +63,6 @@ steps:
     inputs:
       script: |
         ls
-        cd node
         npm test 
   
   - task: CmdLine@2
@@ -71,7 +70,6 @@ steps:
     inputs:
       script: |
         ls
-        cd node
         npm run test-coverage
         npm run junit-report
 
